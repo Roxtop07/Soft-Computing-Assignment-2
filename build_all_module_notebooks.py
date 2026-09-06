@@ -1,10 +1,8 @@
 """
 Generates and executes standalone, production-grade Jupyter Notebooks (.ipynb)
-for every module in the Soft Computing course:
-- Assignment 1: Case Study (Intelligent Air Conditioning Fuzzy Controller)
-- Assignment 2: Module 1 (Fuzzy Logic and Systems - 10 Practicals)
-- Assignment 2: Module 2 (Artificial Neural Networks - 10 Practicals)
-- Assignment 2: Module 3 (Genetic Algorithms & Evolutionary Computing - 10 Practicals)
+for Assignment 2 in the Soft Computing course:
+- Module 1 (Fuzzy Logic and Systems - 10 Practicals)
+- Module 2 (Artificial Neural Networks - 10 Practicals)
 
 Each notebook is executed using nbclient so all outputs and inline plots are pre-rendered!
 """
@@ -18,14 +16,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 A2_DIR = BASE_DIR
 
 def sanitize_code_for_notebook(code):
-    # 1. Replace __file__ references
     code = code.replace("os.path.dirname(__file__)", "os.getcwd()")
-    # 2. Enable inline plotting
     code = code.replace("matplotlib.use('Agg')", "# matplotlib.use('Agg')")
     code = code.replace("plt.close()", "plt.show()")
-    # 3. Handle __name__ == '__main__' -> unindent the main block or replace
     code = code.replace("if __name__ == '__main__':", "if True:")
-    code = code.replace('if __name__ == "__main__":', "if True:")
+    code = code.replace("if __name__ == \"__main__\":", "if True:")
     return code
 
 def extract_docstring_and_code(file_path):
@@ -59,7 +54,7 @@ def create_executed_notebook(cells, output_paths, kernel_cwd):
 
     target_name = os.path.basename(output_paths[0])
     print(f"\nExecuting notebook for target: {target_name} in {kernel_cwd}...")
-    client = NotebookClient(nb, timeout=600, kernel_name="python3", resources={'metadata': {'path': kernel_cwd}})
+    client = NotebookClient(nb, timeout=600, kernel_name="python3", resources={"metadata": {"path": kernel_cwd}})
     executed_nb = client.execute()
 
     for out_p in output_paths:
@@ -67,48 +62,6 @@ def create_executed_notebook(cells, output_paths, kernel_cwd):
             nbformat.write(executed_nb, f)
         print(f"[✓] Saved executed notebook: {out_p} ({os.path.getsize(out_p)/1024:.1f} KB)")
 
-# =====================================================================
-# 1. Assignment 1: Case Study Notebook
-# =====================================================================
-def build_assignment_1_notebook():
-    ac_script_path = os.path.join(A1_DIR, "ac_fuzzy_simulation.py")
-    docstring, ac_code = extract_docstring_and_code(ac_script_path)
-
-    cells = [
-        nbformat.v4.new_markdown_cell(
-            "# STDA2102: Soft Computing (EL1) - Assignment 1\n"
-            "## Case Study: Design of an Intelligent Air Conditioning System Using Fuzzy Logic\n\n"
-            "**Course Code:** STDA2102  \n"
-            "**Student Name:** Manish Kumar  \n"
-            "**Max Marks:** 50 Marks (10% Total CCE)  \n"
-            "**Evaluation Criteria:** Research (15 Pts), Understanding (10 Pts), Explanation & Analysis (10 Pts), Presentation (15 Pts)\n\n"
-            "### Abstract & Problem Statement\n"
-            "Conventional on-off (Bang-Bang) thermostats suffer from high in-rush currents, significant temperature cycling (±2°C), "
-            "and cannot natively compensate for humidity. This notebook implements an intelligent Mamdani Fuzzy Logic Controller (FLC) "
-            "that coordinates indoor ambient temperature and relative humidity to modulate continuous compressor speed, achieving **24.23% energy savings**."
-        ),
-        nbformat.v4.new_code_cell(
-            "import os\n"
-            "import numpy as np\n"
-            "import matplotlib.pyplot as plt\n"
-            "%matplotlib inline\n"
-            "print('Environment initialized.')"
-        ),
-        nbformat.v4.new_markdown_cell(
-            "### Full 24-Hour Thermodynamic Simulation & Control Surface Model\n"
-            "Below is the complete simulation script defining fuzzy sets, the 15-rule Mamdani knowledge base, centroid defuzzification, "
-            "and the 24-hour dynamic thermal ODE comparison against Bang-Bang and PID controllers."
-        ),
-        nbformat.v4.new_code_cell(ac_code)
-    ]
-
-    out_paths = [os.path.join(A1_DIR, "Assignment_1_Case_Study_Simulation.ipynb")]
-    create_executed_notebook(cells, out_paths, A1_DIR)
-
-
-# =====================================================================
-# 2. Assignment 2: Module 1, Module 2, Module 3 Notebooks
-# =====================================================================
 def build_module_notebook(mod_title, mod_folder_name, count):
     mod_dir = os.path.join(A2_DIR, mod_folder_name)
 
@@ -155,7 +108,6 @@ def build_module_notebook(mod_title, mod_folder_name, count):
         ))
         cells.append(nbformat.v4.new_code_cell(code_text))
 
-    # Save in both module directory and practicals root directory for convenience
     nb_name = f"{mod_folder_name}.ipynb"
     out_paths = [
         os.path.join(A2_DIR, nb_name),
@@ -165,11 +117,9 @@ def build_module_notebook(mod_title, mod_folder_name, count):
 
 if __name__ == "__main__":
     print("Building and executing all individual module Jupyter Notebooks...")
-    # Assignment 2 Modules
     modules = [
         ("Module 1: Fuzzy Logic and Systems", "Module_1_Fuzzy_Logic", 10),
-        ("Module 2: Artificial Neural Networks (ANNs)", "Module_2_Neural_Networks", 10),
-        ("Module 3: Genetic Algorithms & Evolutionary Computing", "Module_3_Genetic_Algorithms", 10)
+        ("Module 2: Artificial Neural Networks (ANNs)", "Module_2_Neural_Networks", 10)
     ]
     for title, folder, count in modules:
         build_module_notebook(title, folder, count)

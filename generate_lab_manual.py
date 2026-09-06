@@ -1,7 +1,7 @@
 """
 Generates the Comprehensive Academic Lab Manual & Practical Record for Assignment 2
 in both Markdown (.md) and Word Document (.docx) format.
-Includes all 30 practicals across Module 1, Module 2, and Module 3 with embedded plots!
+Includes all 20 practicals across Module 1 and Module 2 with embedded plots!
 """
 
 import os
@@ -121,63 +121,13 @@ PRACTICALS = [
      "A production-grade diagnostic pipeline incorporates data ingestion, stratified splitting (train/val/test), standard scaling, deep architecture with Dropout and L2 regularization, Early Stopping, and complete clinical diagnostic metrics.",
      "Trained on the Wisconsin Breast Cancer dataset (569 samples, 30 clinical features), the deep network achieved 94.19% test accuracy, 92.59% sensitivity, 96.88% specificity, and 0.9907 ROC-AUC."),
 
-    # Module 3
-    ("3.1", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex01_population_encoding.py", "mod3_ex01_population_encoding.png",
-     "To create and represent a population of individuals using different encoding methods in Python.",
-     "Candidate solutions in evolutionary algorithms are represented via Binary Encoding (bitstrings), Real-Valued Encoding (continuous vectors), Permutation Encoding (TSP orderings), or Gray Code Encoding.",
-     "All 4 representations were implemented. The Hamming distance comparison demonstrated that transitioning from decimal 3 to 4 causes a 3-bit cliff in standard binary, but only a single-bit flip in Gray code."),
-
-    ("3.2", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex02_fitness_function.py", "mod3_ex02_fitness_functions.png",
-     "To define and calculate a simple fitness function for evaluating individuals in a Genetic Algorithm using Python.",
-     "Fitness functions map objective functions into non-negative reproductive fitness scores. When minimizing cost g(x), fitness is formulated as f(x) = 1 / (1 + g(x)). Multimodal benchmark functions include Sphere and Rastrigin.",
-     "Candidate solutions evaluated on the 2D Rastrigin function showed fitness scores ranging from 0.015 for suboptimal boundary points up to 0.333 near the global optimum."),
-
-    ("3.3", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex03_selection_methods.py", "mod3_ex03_selection_methods.png",
-     "To implement basic selection methods for selecting suitable individuals from a population using Python.",
-     "Selection operators model survival of the fittest. Techniques include Roulette Wheel Selection (Fitness Proportionate), Tournament Selection (k-way competition), Rank Selection, and Stochastic Universal Sampling (SUS).",
-     "Across 2000 empirical draws, Tournament Selection (k=3) exerted highest selection pressure, allocating 36.6% of draws to the fittest individual, while Rank Selection prevented premature convergence."),
-
-    ("3.4", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex04_crossover_operations.py", "mod3_ex04_crossover_operators.png",
-     "To implement the crossover operation for generating new offspring from selected individuals using Python.",
-     "Crossover combines parental genetic material to produce novel candidate solutions. Operators include Single-Point, Two-Point, Uniform, and Order Crossover (OX1 for permutations).",
-     "Single-point and two-point crossovers cleanly exchanged binary segments without corruption. Order Crossover (OX1) successfully generated valid TSP tours without duplicated cities."),
-
-    ("3.5", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex05_mutation_operations.py", "mod3_ex05_mutation_operators.png",
-     "To implement the mutation operation for introducing variations in individuals using Python.",
-     "Mutation maintains diversity in the gene pool, preventing entrapment in local optima. Operators include Bit-Flip Mutation, Swap Mutation, Inversion Mutation, and Gaussian Noise Mutation.",
-     "Bit-flip mutated binary loci based on probability Pm; swap and inversion operators preserved permutation validity for routing; Gaussian mutation introduced continuous real-valued perturbations."),
-
-    ("3.6", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex06_simple_genetic_algorithm.py", "mod3_ex06_simple_genetic_algorithm.png",
-     "To create a simple Genetic Algorithm by combining selection, crossover, and mutation operations using Python.",
-     "The Simple Genetic Algorithm (SGA) integrates population initialization, fitness evaluation, elitism, tournament selection, single-point crossover, and bit-flip mutation into an iterative generational loop.",
-     "SGA maximized the complex multimodal benchmark f(x) = x*sin(10πx) + 2.0 over [-1, 2], converging to x* = 1.449 with maximum fitness f = 3.4488 within 50 generations."),
-
-    ("3.7", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex07_convergence_analysis.py", "mod3_ex07_convergence_analysis.png",
-     "To study the convergence of a Genetic Algorithm by observing changes in fitness values over multiple generations using Python.",
-     "Convergence analysis tracks best fitness, mean population fitness, worst fitness, and population diversity (distance to centroid) across generations to observe the balance between exploration and exploitation.",
-     "The GA achieved near-optimal fitness by generation 10. Population diversity decayed from 3.956 down to 0.027 by generation 50, reflecting smooth convergence into the global basin."),
-
-    ("3.8", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex08_particle_swarm_optimization.py", "mod3_ex08_particle_swarm_optimization.png",
-     "To implement a simple Particle Swarm Optimization (PSO) algorithm for solving an optimization problem using Python.",
-     "PSO models social bird flocking. Particles update velocity based on inertia w, cognitive pull toward personal best pbest, and social pull toward global best gbest: v(t+1) = w*v + c1*r1*(pbest - x) + c2*r2*(gbest - x).",
-     "Tested on the non-linear 2D Rosenbrock (banana valley) function, the 35-particle swarm successfully converged to position (1.00063, 1.00118), achieving minimum cost 0.000001."),
-
-    ("3.9", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex09_differential_evolution.py", "mod3_ex09_differential_evolution.png",
-     "To implement a simple Differential Evolution (DE) algorithm for solving an optimization problem using Python.",
-     "Differential Evolution (DE/rand/1/bin) uses vector differences of random population members to drive mutation (v = x_r1 + F*(x_r2 - x_r3)), followed by binomial crossover and greedy selection.",
-     "Tested on the highly multimodal 2D Ackley benchmark, DE converged within 75 generations to the exact global minimum (0.000000, 0.000000) with fitness error of 2.8 × 10^-7."),
-
-    ("3.10", "Module 3: Genetic Algorithms & Evolutionary Computing", "ex10_deap_complete_optimization.py", "mod3_ex10_deap_optimization.png",
-     "To design and implement a complete optimization system using a Genetic Algorithm in Python with the DEAP library by integrating population initialization, fitness evaluation, selection, crossover, mutation, and convergence analysis.",
-     "DEAP (Distributed Evolutionary Algorithms in Python) provides a modular object-oriented architecture featuring creator (FitnessMin, Individual), base.Toolbox, Hall of Fame elite preservation, and logbook statistics.",
-     "DEAP successfully optimized the complex 5-dimensional Griewank benchmark over 60 generations, reducing cost to 0.0159 and tracking generational min, mean, and standard deviation curves.")
 ]
 
 def generate_markdown():
     lines = []
     lines.append("# Soft Computing Laboratory Manual & Practical Record")
     lines.append("## Course: Soft Computing (EL1) | Course Code: STDA2102")
-    lines.append("### Comprehensive Practical Submission (30 Practical Exercises)")
+    lines.append("### Comprehensive Practical Submission (20 Practical Exercises)")
     lines.append("**Student Name:** Manish Kumar  ")
     lines.append("**Course Workload:** 3-0-2 | 4 Credits  ")
     lines.append("**Evaluation Total:** 100 Marks (50 Marks CCE conversion)\n")
@@ -193,12 +143,7 @@ def generate_markdown():
     for num, mod, py_file, img_file, aim, theory, obs in PRACTICALS:
         lines.append(f"## Practical {num}: {aim}")
         lines.append(f"**Module:** {mod}  ")
-        mod_map = {
-            "Module 1: Fuzzy Logic and Systems": "Module_1_Fuzzy_Logic",
-            "Module 2: Artificial Neural Networks (ANNs)": "Module_2_Neural_Networks",
-            "Module 3: Genetic Algorithms & Evolutionary Computing": "Module_3_Genetic_Algorithms"
-        }
-        lines.append(f"**Source Script:** `{mod_map.get(mod, mod)}/{py_file}`\n")
+        lines.append(f"**Source Script:** `Assignment_2_Practicals/{mod.split(':')[0].strip().replace(' ', '_')}/{py_file}`\n")
 
         lines.append("### 1. Aim")
         lines.append(f"{aim}\n")
@@ -245,7 +190,7 @@ def generate_docx():
     p_c.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     p_t = doc.add_paragraph()
-    r_t = p_t.add_run("Comprehensive Practical Laboratory Record\n(All 30 Exercises - Modules 1, 2, and 3)")
+    r_t = p_t.add_run("Comprehensive Practical Laboratory Record\n(All 20 Exercises - Modules 1 and 2)")
     r_t.font.name = "Arial"
     r_t.font.size = Pt(20)
     r_t.font.bold = True
@@ -261,7 +206,7 @@ def generate_docx():
         ("Course Code & Title:", "STDA2102 - Soft Computing (EL1)"),
         ("Evaluation Total:", "100 Marks (50 Marks CCE)"),
         ("Student Name:", "Manish Kumar"),
-        ("Total Practicals Completed:", "30 / 30 Practicals")
+        ("Total Practicals Completed:", "20 / 20 Practicals")
     ]
     for cell, (lbl, val) in zip(cells, meta_info):
         cell.width = Inches(3.2)

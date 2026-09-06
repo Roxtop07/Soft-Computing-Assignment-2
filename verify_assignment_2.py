@@ -1,9 +1,9 @@
 """
 Automated Verification Suite: Soft Computing Assignment 2
 Verifies 100% completion and integrity of all practical exercises:
-- 30 Practical python scripts across Modules 1, 2, and 3
-- 30 Pre-generated high-resolution output figures in output_plots/
-- 3 Module-specific executed Jupyter Notebooks (.ipynb)
+- 20 Practical python scripts across Modules 1 and 2
+- 20 Pre-generated high-resolution output figures in output_plots/
+- 2 Module-specific executed Jupyter Notebooks (.ipynb)
 - 1 Master consolidated Jupyter Notebook (.ipynb)
 - Complete Lab Manual Record (.docx and .md)
 """
@@ -20,7 +20,7 @@ def print_header(title):
     print("=" * 70)
 
 def verify_all():
-    print_header("Verifying Assignment 2: Practical Lab Record & Exercises")
+    print_header("Verifying Assignment 2: Practical Lab Record & Exercises (Modules 1 & 2)")
 
     # 1. Check Notebook and Manual
     nb_path = os.path.join(BASE_DIR, "Soft_Computing_Assignment_2_All_Practicals.ipynb")
@@ -43,7 +43,6 @@ def verify_all():
     mod_notebooks = [
         ("Module 1 (Fuzzy Logic)", "Module_1_Fuzzy_Logic.ipynb", "Module_1_Fuzzy_Logic"),
         ("Module 2 (Neural Networks)", "Module_2_Neural_Networks.ipynb", "Module_2_Neural_Networks"),
-        ("Module 3 (Genetic Algorithms)", "Module_3_Genetic_Algorithms.ipynb", "Module_3_Genetic_Algorithms"),
     ]
     for mod_title, nb_filename, mod_folder in mod_notebooks:
         p1 = os.path.join(BASE_DIR, nb_filename)
@@ -59,14 +58,13 @@ def verify_all():
     plots_dir = os.path.join(BASE_DIR, "output_plots")
     assert os.path.exists(plots_dir), "output_plots directory missing!"
     plots = [f for f in os.listdir(plots_dir) if f.endswith(".png")]
-    print(f"[✓] Generated Practical Output Plots: {len(plots)} / 30 verified.")
-    assert len(plots) == 30, f"Expected 30 plots, found {len(plots)}"
+    print(f"[✓] Generated Practical Output Plots: {len(plots)} / 20 verified.")
+    assert len(plots) == 20, f"Expected 20 plots, found {len(plots)}"
 
     # 4. Check Script Existence Across Modules
     modules = [
         ("Module_1_Fuzzy_Logic", 10),
-        ("Module_2_Neural_Networks", 10),
-        ("Module_3_Genetic_Algorithms", 10)
+        ("Module_2_Neural_Networks", 10)
     ]
     total_scripts = 0
     for mod_name, count in modules:
@@ -76,9 +74,9 @@ def verify_all():
         assert len(scripts) == count, f"Missing scripts in {mod_name}!"
         total_scripts += len(scripts)
 
-    print(f"[✓] Total Practical Scripts: {total_scripts} / 30 present and tested.")
+    print(f"[✓] Total Practical Scripts: {total_scripts} / 20 present and tested.")
     print("\n" + "*" * 70)
-    print(" *** ALL PRACTICAL DELIVERABLES VERIFIED: 100% COMPLETE & PASSING *** ")
+    print(" *** ALL PRACTICAL DELIVERABLES (MODULES 1 & 2) VERIFIED: 100% PASSING *** ")
     print("*" * 70 + "\n")
 
 if __name__ == "__main__":

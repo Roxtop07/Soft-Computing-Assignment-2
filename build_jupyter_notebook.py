@@ -1,5 +1,5 @@
 """
-Compiles and executes all 30 practical exercises from Module 1, Module 2, and Module 3
+Compiles and executes all 20 practical exercises from Module 1 and Module 2
 into a single unified, fully executed master Jupyter Notebook (.ipynb).
 """
 
@@ -13,8 +13,7 @@ NOTEBOOK_PATH = os.path.join(BASE_DIR, "Soft_Computing_Assignment_2_All_Practica
 
 MODULES = [
     ("Module 1: Fuzzy Logic and Systems", "Module_1_Fuzzy_Logic", 10),
-    ("Module 2: Artificial Neural Networks (ANNs)", "Module_2_Neural_Networks", 10),
-    ("Module 3: Genetic Algorithms & Evolutionary Computing", "Module_3_Genetic_Algorithms", 10)
+    ("Module 2: Artificial Neural Networks (ANNs)", "Module_2_Neural_Networks", 10)
 ]
 
 def sanitize_code_for_notebook(code):
@@ -51,14 +50,13 @@ def build_and_execute_master_notebook():
 
     intro_md = (
         "# STDA2102: Soft Computing (EL1) - Practical Laboratory Record\n"
-        "## Assignment 2: Practical Exercises (Complete 30 Practicals)\n\n"
+        "## Assignment 2: Practical Exercises (Complete 20 Practicals)\n\n"
         "**Student Name:** Manish Kumar  \n"
         "**Course Code:** STDA2102  \n"
         "**Evaluation Total:** 100 Marks (50 Marks CCE conversion)  \n"
         "**Modules Covered:**\n"
         "1. **Module 1:** Fuzzy Logic and Systems (Practicals 1.1 to 1.10)\n"
-        "2. **Module 2:** Artificial Neural Networks (Practicals 2.1 to 2.10)\n"
-        "3. **Module 3:** Genetic Algorithms & Evolutionary Computing (Practicals 3.1 to 3.10)\n\n"
+        "2. **Module 2:** Artificial Neural Networks (Practicals 2.1 to 2.10)\n\n"
         "---"
     )
     cells.append(nbformat.v4.new_markdown_cell(intro_md))
@@ -104,7 +102,7 @@ def build_and_execute_master_notebook():
         "kernelspec": {"display_name": "Python 3.11", "language": "python", "name": "python3"}
     }
 
-    print("Executing master all-in-one notebook (30 practicals)...")
+    print("Executing master all-in-one notebook (20 practicals)...")
     client = NotebookClient(nb, timeout=800, kernel_name="python3", resources={'metadata': {'path': BASE_DIR}})
     executed_nb = client.execute()
 
